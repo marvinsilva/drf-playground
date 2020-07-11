@@ -1,10 +1,9 @@
 FROM python:3.7.5-slim-stretch
 
-ENV PYTHONUNBUFFERED=1
-
 WORKDIR /api
 
 COPY . /api
 
+# installs non-dev dependencies to system's python from pipfile.lock
 RUN pip install pipenv && \
-    pipenv install --system --deploy --ignore-pipfile --dev
+    pipenv install --system --deploy --ignore-pipfile
