@@ -2,6 +2,8 @@ version: "3.5"
 services:
   db:
     image: postgres:10.1-alpine
+    ports:
+      - 5432:5432
   web:
     build:
       context: .
@@ -13,4 +15,7 @@ services:
       - "${DJANGO_BIND_PORT}:${DJANGO_BIND_PORT}"
     depends_on:
       - db
-    tty: true
+    command:
+      [
+        "./start-local.sh"
+      ]
