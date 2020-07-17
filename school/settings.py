@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "school.courses",
+    "courses",
 ]
 
 MIDDLEWARE = [
@@ -91,7 +91,6 @@ DATABASES = {
     }
 }
 DATABASES["default"]["CONN_MAX_AGE"] = int(os.getenv("DB_CONN_MAX_AGE", 0))  # type: ignore
-
 
 
 # Password validation

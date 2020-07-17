@@ -1,5 +1,6 @@
+from courses.models import Course
+from courses.models import Evaluation
 from django.contrib import admin
-from school.courses.models import Course, Evaluation
 
 
 @admin.register(Course)
