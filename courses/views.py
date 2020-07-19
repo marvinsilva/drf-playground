@@ -3,7 +3,15 @@ from courses.models import Evaluation
 from courses.serializers import CourseSerializer
 from courses.serializers import EvaluationSerializer
 from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+
+
+"""
+API version 1 api/v1 using generic views
+"""
 
 
 class CoursesAPIView(generics.ListCreateAPIView):
@@ -56,3 +64,24 @@ class EvaluationAPIView(generics.RetrieveUpdateDestroyAPIView):
         return get_object_or_404(
             self.get_queryset(), pk=self.kwargs.get("evaluation_pk")
         )
+
+
+"""
+API version 2 api/v2 using viewsets
+"""
+
+
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    @action(detail=True, methods=["get"])
+    def evaluations(self, request, pk=None):
+        course = self.get_object()
+        serializer = EvaluationSerializer(course.Evaluations.all(), many=True)
+        return Response(serializer.data)
+
+
+class EvaluationViewSet(viewsets.ModelViewSet):
+    queryset = Evaluation.objects.all()
+    serializer_class = EvaluationSerializer
