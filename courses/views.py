@@ -2,40 +2,40 @@ from courses.models import Course
 from courses.models import Evaluation
 from courses.serializers import CourseSerializer
 from courses.serializers import EvaluationSerializer
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import generics
 
 
-class CourseAPIView(APIView):
+class CoursesAPIView(generics.ListCreateAPIView):
     """
-    Course APIView
+    Concrete view for listing a queryset or creating a Course model instance.
     """
 
-    def get(self, request):
-        courses = Course.objects.all()
-        serializer = CourseSerializer(courses, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = CourseSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
 
 
-class EvaluationAPIView(APIView):
+class CourseAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
-    Evaluation APIView
+    Concrete view for retrieving, updating or deleting a Course model instance.
     """
 
-    def get(self, request):
-        evaluations = Evaluation.objects.all()
-        serializer = EvaluationSerializer(evaluations, many=True)
-        return Response(serializer.data)
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
 
-    def post(self, request):
-        serializer = EvaluationSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class EvaluationsAPIView(generics.ListCreateAPIView):
+    """
+    Concrete view for listing a queryset or creating a Evaluation model instance.
+    """
+
+    queryset = Evaluation.objects.all()
+    serializer_class = EvaluationSerializer
+
+
+class EvaluationAPIView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Concrete view for retrieving, updating or deleting a Evaluation model instance.
+    """
+
+    queryset = Evaluation.objects.all()
+    serializer_class = EvaluationSerializer
