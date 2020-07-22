@@ -25,9 +25,10 @@ class CourseSerializer(serializers.ModelSerializer):
     # evaluations = EvaluationSerializer(many=True, read_only=True)
 
     # Hyperlinked Related Field
-    evaluations = serializers.HyperlinkedRelatedField(
-        many=True, read_only=True, view_name="evaluation-detail"
-    )
+    # evaluations = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name="evaluation-detail")
+
+    # Primary Key Related Field
+    evaluations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Course
