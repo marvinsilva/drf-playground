@@ -24,7 +24,7 @@ class Course(Base):
 
 class Evaluation(Base):
     course = models.ForeignKey(
-        Course, related_name="Evaluations", on_delete=models.CASCADE
+        Course, related_name="evaluations", on_delete=models.CASCADE
     )
     name = models.CharField(max_length=255, verbose_name="Evaluator Name")
     email = models.EmailField()
