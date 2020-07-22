@@ -22,7 +22,12 @@ class EvaluationSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
 
     # Nested Relationship
-    evaluations = EvaluationSerializer(many=True, read_only=True)
+    # evaluations = EvaluationSerializer(many=True, read_only=True)
+
+    # Hyperlinked Related Field
+    evaluations = serializers.HyperlinkedRelatedField(
+        many=True, read_only=True, view_name="evaluation-detail"
+    )
 
     class Meta:
         model = Course
