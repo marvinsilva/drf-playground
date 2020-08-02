@@ -5,5 +5,6 @@ WORKDIR /app
 COPY . /app
 
 # installs dev dependencies with pipfile.lock and to the system's python
-RUN pip install pipenv && \
-    pipenv install --system --deploy --ignore-pipfile --dev
+RUN pip install --upgrade pip && \
+    pip install pipenv && \
+    pipenv install --system --deploy --ignore-pipfile

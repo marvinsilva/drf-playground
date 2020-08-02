@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 python manage.py makemigrations
 python manage.py migrate
-python manage.py seeddb --create-super-user
 
 if [[ ${DJANGO_BIND_ADDRESS+x} ]] && [[ ${DJANGO_BIND_PORT+x} ]];
 then

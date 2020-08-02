@@ -1,13 +1,18 @@
 version: "3.5"
+
+x-build: &default-build
+  context: .
+  dockerfile: DockerfileDev
+
 services:
   db:
     image: postgres:10.1-alpine
     ports:
       - 5432:5432
+
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    container_name: banff_web
+    build: *default-build
     env_file: .env
     volumes:
       - .:/app
@@ -17,5 +22,29 @@ services:
       - db
     command:
       [
-        "./start-local.sh"
+        "./scripts/wait-for-it.sh",
+        "${DB_HOST}:${DB_PORT}",
+        "-t",
+        "120",
+        "--",
+        "./scripts/start.sh",
       ]
+
+  lint:
+    container_name: banff-lint
+    build: *default-build
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: ["./scripts/start-lint.sh"]
+
+  integration-tests:
+    container_name: banff-tests
+    image: python:3.7.4-slim
+    env_file: .env
+    working_dir: /app
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    command: ["./scripts/start-tests.sh"]
