@@ -10,8 +10,8 @@ services:
     ports:
       - 5432:5432
 
-  web:
-    container_name: banff_web
+  app:
+    container_name: banff_app
     build: *default-build
     env_file: .env
     volumes:
