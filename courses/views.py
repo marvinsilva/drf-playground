@@ -3,6 +3,7 @@ from courses.models import Evaluation
 from courses.serializers import CourseSerializer
 from courses.serializers import EvaluationSerializer
 from rest_framework import generics
+from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
@@ -72,6 +73,7 @@ API version 2 api/v2 using viewsets
 
 
 class CourseViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.DjangoModelPermissions, )
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
