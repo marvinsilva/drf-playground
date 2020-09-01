@@ -1,3 +1,4 @@
+from courses.management.permissions import isSuperUser
 from courses.models import Course
 from courses.models import Evaluation
 from courses.serializers import CourseSerializer
@@ -73,7 +74,10 @@ API version 2 api/v2 using viewsets
 
 
 class CourseViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.DjangoModelPermissions, )
+    permission_classes = (
+        isSuperUser,
+        permissions.DjangoModelPermissions,
+    )
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
