@@ -1,4 +1,5 @@
-# banff
-Django Rest Framework project by Geek University
+# Django Rest Framework playground project 
+by Geek University
 
-Moraine Lake near Lake Louise in Banff National Park.
+Django REST framework is a powerful and flexible toolkit for building Web APIs.
+Documentation: https://www.django-rest-framework.org/
